@@ -12,6 +12,7 @@ Python 2.7 and newest versions of the following packages:
     - numpy 
     - scipy
     - astropy
+    - iminuit (for fitting an intrinsic function + blr absorption)
 
 License
 -------
