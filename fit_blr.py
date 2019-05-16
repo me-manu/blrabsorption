@@ -487,7 +487,7 @@ class FitBLR(object):
         return
 
     @setDefault(passed_kwargs = minuit_def)
-    def fit(self,int_spec, minos = True, **kwargs):
+    def fit(self,int_spec, minos = 0., refit = True, **kwargs):
         """
         Fit an intrinsic spectrum
 
@@ -559,7 +559,7 @@ class FitBLR(object):
                     )
             self.m.fitarg['fix_r'] = False
 
-            if np.min(llh) < self.m.fval:
+            if np.min(llh) < self.m.fval and refit:
                 idx = np.argmin(llh)
                 if ok[idx]:
                     logging.warning("New minimum found in llh scan!")
@@ -568,13 +568,14 @@ class FitBLR(object):
                         fitarg[k] = bf[idx][k]
                     fitarg['fix_r'] = True
                     kwargs['scipy'] = False
+                    print fitarg
                     self.run_migrad(fitarg, **kwargs)
 
             if minos:
                 for k in self.m.values.keys():
                     if kwargs['fix'][k]:
                         continue
-                    self.m.minos(k,1.)
+                    self.m.minos(k,minos)
                 logging.debug("Minos finished")
 
         else:

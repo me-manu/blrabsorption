@@ -406,6 +406,8 @@ class BLR(object):
                     geometry = 'shell', chi = 0.01):
         """
         Calculate the total energy density of the photon field
+        in same units as Ldisk
+
 
         Parameters:
         ----------
@@ -417,7 +419,8 @@ class BLR(object):
 
         Returns
         -------
-        n x m dimensional `~numpy.ndarray` with gamma-ray optical depth
+        Value of energy density in units of ergs / cm^3 if Ldisk was 
+        provided in ergs / s
         """
         if geometry == 'shell':
             raise ValueError("shell geometry not implemented yet")
